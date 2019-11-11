@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Constitución de Chile</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <!-- UIkit CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/css/uikit.min.css" />
+
+        <!-- UIkit JS -->
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit-icons.min.js"></script>
+    </head>
+    <body >
+        <div class="uk-container">
+
+            <div class="uk-background-secondary uk-padding-small uk-light">
+                <b>Constitución Política de la República de Chile</b>
+            </div>
+
+            <div uk-grid >
+
+                <!-- MENU -->
+                <div class="uk-width-1-4" th:insert="menu :: menu"></div>
+
+                <div class="uk-width-3-4">
+
+                    <article class="uk-article">
+
+                        <h3>CAPITULO 2: NACIONALIDAD Y CIUDADANIA</h3>
+
+                        <div class="uk-grid-small uk-child-width-auto" uk-grid>
+                            <div>
+                                <a class="uk-button uk-button-text" th:href="@{/capitulo01/articulo009}">Anterior</a>
+                            </div>
+                            <div>
+                                <a class="uk-button uk-button-text" th:href="@{/capitulo02/articulo011}">Siguiente</a>
+                            </div>
+                        </div>
+
+                        <p><b>Artículo 10</b></p>
+
+                        <p>Son chilenos:
+
+                        <ol>
+                            <li>Los nacidos en el territorio de Chile, con excepción de los hijos de extranjeros
+                                que se encuentren en Chile en servicio de su Gobierno, y de los hijos de extranjeros
+                                transeúntes, todos los que, sin embargo, podrán optar por la nacionalidad chilena;
+                            <li>Los hijos de padre o madre chilenos nacidos en territorio extranjero, hallándose
+                                cualquiera de éstos en actual servicio de la República, quienes se considerarán para todos
+                                los efectos como nacidos en el territorio chileno;
+                            <li>Los hijos de padre o madre chilenos, nacidos en territorio extranjero, por el solo
+                                hecho de avecindarse por más de un año en Chile;
+                            <li>Los extranjeros que obtuvieren carta de nacionalización en conformidad a la ley,
+                                renunciando expresamente a su nacionalidad anterior. No se exigirá esta renuncia a los
+                                nacidos en país extranjero que, en virtud de un tratado internacional, conceda este mismo
+                                beneficio a los chilenos.
+                                Los nacionalizados en conformidad a este número tendrán opción a cargos
+                                públicos de elección popular sólo después de cinco años de estar en posesión de sus
+                                cartas de nacionalización, y
+                            <li> Los que obtuvieren especial gracia de nacionalización por ley.
+                                La ley reglamentará los procedimientos de opción por la nacionalidad chilena; de
+                                otorgamiento, negativa y cancelación de las cartas de nacionalización, y la formación de un
+                                registro de todos estos actos.
+                        </ol>
+                    </article>
+
+                </div>
+            </div>
+
+
+        </div>
+    </body>
+</html>

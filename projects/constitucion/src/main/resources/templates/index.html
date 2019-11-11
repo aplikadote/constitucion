@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Constitución de Chile</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <!-- UIkit CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/css/uikit.min.css" />
+
+        <!-- UIkit JS -->
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit-icons.min.js"></script>
+
+        <!-- Knockout JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+
+        <!-- JQUERY -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    </head>
+    <body >
+        <div class="uk-container">
+
+            <div class="uk-background-secondary uk-padding-small uk-light">
+                <b>Constitución Política de la República de Chile</b>
+            </div>
+
+            <div uk-grid >
+
+                <!-- MENU -->
+                <div class="uk-width-1-4@l">
+                    <div class="uk-background-secondary uk-light uk-padding-small" th:fragment="menu" >
+                        <!--uk-height-viewport-->
+                        <ul class="uk-nav uk-nav-default">
+
+                            <li><a href="" data-bind="click: $root.gotoIndex">Inicio</a></li>
+
+                            <ul data-bind="foreach: capitulos">
+                                <li data-bind="text: title"></li>
+
+                                <ul class="uk-nav-sub" data-bind="foreach: articulos">
+                                    <li><a href="" data-bind="text: title, click: $root.gotoChapter"></a></li>
+                                </ul>
+                            </ul>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <div class="uk-width-3-4@l">
+
+                    <div id="result"></div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <script>
+            function vm() {
+                var self = this;
+
+                self.capitulos = [
+                    {'code': 'capitulo01', 'title': 'CAPITULO I BASES DE LA INSTITUCIONALIDAD Arts. 1 al 9', 'start': 1, 'end': 9, 'articulos': []},
+                    {'code': 'capitulo02', 'title': 'CAPITULO II NACIONALIDAD Y CIUDADANIA Arts. 10 al 18', 'start': 10, 'end': 18, 'articulos': []},
+                    {'code': 'capitulo03', 'title': 'CAPITULO III DE LOS DERECHOS Y DEBERES CONSTITUCIONALES Arts. 19 al 23', 'start': 19, 'end': 23, 'articulos': []},
+                    {'code': 'capitulo04', 'title': 'CAPITULO IV GOBIERNO Arts. 24 al 45', 'start': 24, 'end': 45, 'articulos': []},
+                    {'code': 'capitulo05', 'title': 'CAPITULO V CONGRESO NACIONAL Art. 46 al 75', 'start': 46, 'end': 75, 'articulos': []},
+                    {'code': 'capitulo06', 'title': 'CAPITULO VI PODER JUDICIAL Arts. 76 al 82', 'start': 76, 'end': 82, 'articulos': []},
+                    {'code': 'capitulo07', 'title': 'CAPITULO VII MINISTERIO PUBLICO Arts. 83 al 91', 'start': 83, 'end': 91, 'articulos': []},
+                    {'code': 'capitulo08', 'title': 'CAPITULO VIII TRIBUNAL CONSTITUCIONAL Arts. 92 al 94', 'start': 92, 'end': 94, 'articulos': []},
+                    {'code': 'capitulo09', 'title': 'CAPITULO IX JUSTICIA ELECTORAL Arts. 95 al 97', 'start': 95, 'end': 97, 'articulos': []},
+                    {'code': 'capitulo10', 'title': 'CAPITULO X CONTRALORIA GENERAL DE LA REPUBLICA Arts. 98 al 100', 'start': 98, 'end': 100, 'articulos': []},
+                    {'code': 'capitulo11', 'title': 'CAPITULO XI FUERZAS ARMADAS, DE ORDEN Y SEGURIDAD PÚBLICA Arts. 101 al 105', 'start': 101, 'end': 105, 'articulos': []},
+                    {'code': 'capitulo12', 'title': 'CAPITULO XII CONSEJO DE SEGURIDAD NACIONAL Arts. 106 al 107', 'start': 106, 'end': 107, 'articulos': []},
+                    {'code': 'capitulo13', 'title': 'CAPITULO XIII BANCO CENTRAL Arts. 108 al 109', 'start': 108, 'end': 109, 'articulos': []},
+                    {'code': 'capitulo14', 'title': 'CAPITULO XIV GOBIERNO Y ADMINISTRACION INTERIOR DEL ESTADO Art. 110 al 126', 'start': 110, 'end': 126, 'articulos': []},
+                    {'code': 'capitulo15', 'title': 'CAPITULO XV REFORMA DE LA CONSTITUCION Arts. 127 al 129', 'start': 127, 'end': 129, 'articulos': []},
+                ];
+
+                self.capitulos.forEach(function (x) {
+                    for (var i = x.start; i <= x.end; i++) {
+                        var iStr = i.toString().padStart(3, "0")
+                        x.articulos.push({'code': 'articulo' + iStr, 'title': 'Artículo ' + i, 'chapter': x.code});
+                    }
+                });
+
+                self.selected = ko.observable({'code': '', 'title': '', 'chapter': ''});
+                self.selectedData = ko.observable();
+
+                self.gotoIndex = function () {
+                    $('#result').load('home.html #home');
+                };
+
+                self.gotoChapter = function (x) {
+                    self.selected(x);
+                    $('#result').load(x.chapter + '.html #' + x.code);
+                };
+
+                self.gotoIndex();
+            }
+
+            ko.applyBindings(new vm());
+
+        </script>
+    </body>
+</html>
