@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Constitución de Chile</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <!-- UIkit CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/css/uikit.min.css" />
+
+        <!-- UIkit JS -->
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit-icons.min.js"></script>
+
+        <!-- Knockout JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+
+        <!-- JQUERY -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    </head>
+    <body >
+        <div>
+
+            <div class="uk-background-secondary uk-padding-small uk-light">
+                <b>Constitución Política de la República de Chile</b>
+            </div>
+
+            <div uk-grid >
+
+                <!-- MENU -->
+                <div class="uk-width-1-4@l">
+                    <div class="uk-background-secondary uk-light uk-padding-small" th:fragment="menu" >
+                        <!--uk-height-viewport-->
+                        <ul class="uk-nav uk-nav-default">
+
+                            <li><a th:href="@{/}">Inicio</a></li>
+
+                            <li th:each="c: ${capitulos}">
+                                [[${c.title}]]
+                                <ul class="uk-nav-sub" >
+                                    <li th:each="a: ${c.articulos}">
+                                        <a th:href="@{/search/(articulo=${a.number})}" > [[${a.title}]]</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <div class="uk-width-3-4@l">
+                    <div id="home">
+                        <article class="uk-article">
+
+                            <h2>CONSTITUCIÓN POLÍTICA DE LA REPUBLICA DE CHILE</h2>
+
+                            <p class="uk-article-meta">Santiago, 17 de septiembre de 2005</p>
+
+                            <p>DECRETO SUPREMO N° 100
+                            <p>VISTO: En uso de las facultades que me confiere el artículo 2° de la Ley Nº 20.050, y teniendo presente lo dispuesto en el artículo 32 N° 8 de la Constitución Política de 1980.
+                            <p>DECRETO: Fíjase el siguiente texto refundido, coordinado y sistematizado de la Constitución Política de la República:
+
+                        </article>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </body>
+</html>
