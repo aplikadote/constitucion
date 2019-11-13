@@ -18,8 +18,22 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
         <style>
-            ul {
+            ul.articulo {
                 list-style: none;
+            }
+            
+            ul.articulo > li {
+                padding-top: 10px;
+                padding-bottom : 10px;
+            }
+            
+            ol.articulo {
+                list-style: none;
+            }
+
+            ol.articulo > li {
+                padding-top: 10px;
+                padding-bottom : 10px;
             }
         </style>
     </head>
@@ -55,6 +69,8 @@
                                 </ul>
                             </li>
 
+                            <li><a th:href="@{/refs}">Referencias</a></li>
+
                         </ul>
 
                     </div>
@@ -68,6 +84,7 @@
                         <article class="uk-article">
                             <br>
                             <p><b>[[${ctitle}]]</b>
+                            <br>[[${stitle}]]
                             <hr>
                             <p><b>[[${atitle}]]</b>
 

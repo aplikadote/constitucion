@@ -27,6 +27,7 @@ public class AppController {
         model.addAttribute("capitulos", caps);
         model.addAttribute("cid", "00");
         model.addAttribute("ctitle", "CONSTITUCIÓN POLÍTICA DE LA REPUBLICA DE CHILE");
+        model.addAttribute("stitle", "");
         model.addAttribute("aid", "0");
         model.addAttribute("atitle", "");
         return "search";
@@ -47,6 +48,7 @@ public class AppController {
                 for (int k = 0; k < s.getArticulos().size(); k++) {
                     Articulo a = s.getArticulos().get(k);
                     a.setCapitulo(c);
+                    a.setSeccion(s);
                     a.setPosition(pos++);
 
                     arts.add(a);
@@ -67,6 +69,7 @@ public class AppController {
 
             model.addAttribute("cid", cid);
             model.addAttribute("ctitle", articulo.getCapitulo().getTitle());
+            model.addAttribute("stitle", articulo.getSeccion().getTitle());
             model.addAttribute("aid", id);
             model.addAttribute("atitle", "Artículo " + id);
             model.addAttribute("prevId", prevId);
@@ -86,6 +89,7 @@ public class AppController {
         model.addAttribute("capitulos", caps);
         model.addAttribute("cid", "00");
         model.addAttribute("ctitle", "REFERENCIAS");
+        model.addAttribute("stitle", "");
         model.addAttribute("aid", "refs");
         model.addAttribute("atitle", "");
         return "search";
