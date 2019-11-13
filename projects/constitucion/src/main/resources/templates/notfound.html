@@ -28,17 +28,17 @@
             <div uk-grid >
 
                 <!-- MENU -->
-                <div class="uk-width-1-4@l">
+                <div class="uk-width-1-5@l">
                     <div class="uk-background-secondary uk-light uk-padding-small" th:fragment="menu" >
                         <ul class="uk-nav uk-nav-default">
                             
-                            <li><a th:href="@{/}">Inicio</a></li>
+                            <li><a th:href="@{/cap/(id=0)}">Constitución</a></li>
 
                             <li th:each="c: ${capitulos}">
-                                [[${c.title}]]
+                                <a th:href="@{/cap/(id=${c.id})}" > [[${c.title}]]</a>
                                 <ul class="uk-nav-sub" >
                                     <li th:each="a: ${c.articulos}">
-                                        <a th:href="@{/search/(articulo=${a.number})}" > [[${a.title}]]</a>
+                                        <a th:href="@{/art/(id=${a.id})}" > [[${a.title}]]</a>
                                     </li>
                                 </ul>
                             </li>
@@ -48,7 +48,7 @@
 
                 </div>
 
-                <div class="uk-width-3-4@l">
+                <div class="uk-width-4-5@l">
                     
                     Articulo no encontrado
 

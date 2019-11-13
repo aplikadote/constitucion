@@ -11,27 +11,26 @@ package cl.rworks.fae.constitucion;
  */
 public class Articulo {
 
-    private String code;
+    private String id;
     private String title;
-    private String codeChapter;
-    private int number;
-
+    //
+    private Capitulo capitulo;
+    private int position;
+    
     public Articulo() {
     }
 
-    public Articulo(String code, String title, String codeChapter, int number) {
-        this.code = code;
+    public Articulo(String id, String title) {
+        this.id = id;
         this.title = title;
-        this.codeChapter = codeChapter;
-        this.number = number;
     }
 
-    public String getCode() {
-        return code;
+    public String getId() {
+        return id;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -42,20 +41,21 @@ public class Articulo {
         this.title = title;
     }
 
-    public String getCodeChapter() {
-        return codeChapter;
+    public Capitulo getCapitulo() {
+        return capitulo;
     }
 
-    public void setCodeChapter(String codeChapter) {
-        this.codeChapter = codeChapter;
+    public void setCapitulo(Capitulo capitulo) {
+        this.capitulo = capitulo;
     }
 
-    public int getNumber() {
-        return number;
+    public int getPosition() {
+        return position;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setPosition(int position) {
+        this.position = position;
     }
-
+    
 }
+

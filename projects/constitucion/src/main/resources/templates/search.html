@@ -17,6 +17,11 @@
         <!-- JQUERY -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+        <style>
+            ul {
+                list-style: none;
+            }
+        </style>
     </head>
     <body >
         <div>
@@ -28,29 +33,58 @@
             <div uk-grid >
 
                 <!-- MENU -->
-                <div class="uk-width-1-4@l">
+                <div class="uk-width-1-5@l">
                     <div class="uk-background-secondary uk-light uk-padding-small" th:fragment="menu" >
-                        <ul class="uk-nav uk-nav-default">
-                            
-                            <li><a th:href="@{/}">Inicio</a></li>
+                        <ul class="uk-nav uk-nav-default" uk-nav="multiple: true">
 
-                            <li th:each="c: ${capitulos}">
-                                [[${c.title}]]
+                            <li><a th:href="@{/}">Constitución</a></li>
+
+                            <!--<li th:classappend="${c.id == cid} ? uk-active: ''" th:each="c: ${capitulos}">-->
+                            <li class="uk-parent" th:classappend="${c.id == cid} ? uk-open: ''" th:each="c: ${capitulos}">
+                                <!--<a th:href="@{/cap/(id=${c.id})}" > [[${c.title}]]</a>-->
+                                <a href="#"> [[${c.title}]]</a>
                                 <ul class="uk-nav-sub" >
-                                    <li th:each="a: ${c.articulos}">
-                                        <a th:href="@{/search/(articulo=${a.number})}" > [[${a.title}]]</a>
+                                    <li th:each="s: ${c.secciones}">
+                                        [[${s.title}]]
+                                        <ul class="uk-nav-sub">
+                                            <li th:classappend="${a.id == aid} ? uk-active: ''" th:each="a: ${s.articulos}">
+                                                <a th:href="@{/art/(id=${a.id})}" > [[${a.title}]]</a>
+                                            </li>
+                                        </ul>
                                     </li>
                                 </ul>
                             </li>
+
                         </ul>
 
                     </div>
 
                 </div>
 
-                <div class="uk-width-3-4@l">
-                    
-                    <div th:replace="'capitulos/' + ${capitulo} :: ${articulo}"></div>
+                <div class="uk-width-4-5@l">
+
+                    <div th:if="${error == null}" >
+
+                        <article class="uk-article">
+                            <br>
+                            <p><b>[[${ctitle}]]</b>
+                            <hr>
+                            <p><b>[[${atitle}]]</b>
+
+                            <div th:replace="'capitulos/capitulo' + ${cid} :: ${aid}"></div>
+
+                            <hr>
+                            <div class="uk-grid-small uk-child-width-auto" uk-grid>
+                                <div><a class="uk-button uk-button-text" th:href="@{/art/?(id=${prevId})}">[[${prevTitle}]]</a></div>
+                                <div><a class="uk-button uk-button-text" th:href="@{/art/?(id=${nextId})}">[[${nextTitle}]]</a></div>
+                            </div>
+                        </article>
+
+                    </div>
+
+                    <div th:if="${error != null}" >
+                        Articulo no encontrado
+                    </div>
 
                 </div>
 

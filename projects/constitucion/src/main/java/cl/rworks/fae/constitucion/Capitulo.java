@@ -5,6 +5,8 @@
  */
 package cl.rworks.fae.constitucion;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -12,29 +14,31 @@ import java.util.List;
  * @author usuario
  */
 public class Capitulo {
-    
-    private String code;
-    private String title;
-    private int start;
-    private int end;
-    private List<Articulo> articulos;
+
+    private String id = "";
+    private String title = "";
+    private List<Seccion> secciones = new ArrayList<>();
 
     public Capitulo() {
     }
 
-    public Capitulo(String code, String title, int start, int end) {
-        this.code = code;
+    public Capitulo(String id, String title) {
+        this.id = id;
         this.title = title;
-        this.start = start;
-        this.end = end;
     }
 
-    public String getCode() {
-        return code;
+    public Capitulo(String id, String title, Seccion... list) {
+        this.id = id;
+        this.title = title;
+        this.secciones.addAll(Arrays.asList(list));
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -45,34 +49,17 @@ public class Capitulo {
         this.title = title;
     }
 
-    public int getStart() {
-        return start;
+    public List<Seccion> getSecciones() {
+        return secciones;
     }
 
-    public void setStart(int start) {
-        this.start = start;
-    }
-
-    public int getEnd() {
-        return end;
-    }
-
-    public void setEnd(int end) {
-        this.end = end;
-    }
-
-    public List<Articulo> getArticulos() {
-        return articulos;
-    }
-
-    public void setArticulos(List<Articulo> articulos) {
-        this.articulos = articulos;
+    public void setSecciones(List<Seccion> secciones) {
+        this.secciones = secciones;
     }
 
     @Override
     public String toString() {
-        return "Capitulo{" + "code=" + code + ", title=" + title + ", start=" + start + ", end=" + end + '}';
+        return "Capitulo{" + "id=" + id + ", title=" + title + '}';
     }
-    
-    
+
 }
