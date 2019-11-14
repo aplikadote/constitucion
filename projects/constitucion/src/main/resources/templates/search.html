@@ -53,7 +53,6 @@
 
                             <li><a th:href="@{/}">Constitución</a></li>
 
-                            <!--<li th:classappend="${c.id == cid} ? uk-active: ''" th:each="c: ${capitulos}">-->
                             <li class="uk-parent" th:classappend="${c.id == cid} ? uk-open: ''" th:each="c: ${capitulos}">
                                 <!--<a th:href="@{/cap/(id=${c.id})}" > [[${c.title}]]</a>-->
                                 <a href="#"> [[${c.title}]]</a>
@@ -68,7 +67,7 @@
                                     </li>
                                 </ul>
                             </li>
-
+                            
                             <li><a th:href="@{/refs}">Referencias</a></li>
 
                         </ul>
@@ -92,8 +91,8 @@
 
                             <hr>
                             <div class="uk-grid-small uk-child-width-auto" uk-grid>
-                                <div><a class="uk-button uk-button-text" th:href="@{/art/?(id=${prevId})}">[[${prevTitle}]]</a></div>
-                                <div><a class="uk-button uk-button-text" th:href="@{/art/?(id=${nextId})}">[[${nextTitle}]]</a></div>
+                                <div><a class="uk-button uk-button-text" th:href="@{/art/?(id=${aprevId})}">[[${aprevTitle}]]</a></div>
+                                <div><a class="uk-button uk-button-text" th:href="@{/art/?(id=${anextId})}">[[${anextTitle}]]</a></div>
                             </div>
                         </article>
 

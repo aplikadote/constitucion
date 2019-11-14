@@ -65,6 +65,6 @@ public class Articulo {
     public void setPosition(int position) {
         this.position = position;
     }
-    
+
 }
 

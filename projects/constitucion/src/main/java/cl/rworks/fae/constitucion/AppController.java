@@ -71,11 +71,11 @@ public class AppController {
             model.addAttribute("ctitle", articulo.getCapitulo().getTitle());
             model.addAttribute("stitle", articulo.getSeccion().getTitle());
             model.addAttribute("aid", id);
-            model.addAttribute("atitle", "Artículo " + id);
-            model.addAttribute("prevId", prevId);
-            model.addAttribute("nextId", nextId);
-            model.addAttribute("prevTitle", prevTitle);
-            model.addAttribute("nextTitle", nextTitle);
+            model.addAttribute("atitle", articulo.getTitle());
+            model.addAttribute("aprevId", prevId);
+            model.addAttribute("anextId", nextId);
+            model.addAttribute("aprevTitle", prevTitle);
+            model.addAttribute("anextTitle", nextTitle);
             return "search";
         } else {
             model.addAttribute("error", "error");
