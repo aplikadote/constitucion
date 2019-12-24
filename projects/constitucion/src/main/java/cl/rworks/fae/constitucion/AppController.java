@@ -83,7 +83,7 @@ public class AppController {
         }
     }
 
-    @RequestMapping("/refs*")
+    @RequestMapping("/ref*")
     public String refs(Model model) {
         List<Capitulo> caps = service.getCapitulos();
         model.addAttribute("capitulos", caps);
@@ -91,6 +91,18 @@ public class AppController {
         model.addAttribute("ctitle", "REFERENCIAS");
         model.addAttribute("stitle", "");
         model.addAttribute("aid", "refs");
+        model.addAttribute("atitle", "");
+        return "search";
+    }
+    
+    @RequestMapping("/publicacion")
+    public String publicacion(Model model) {
+        List<Capitulo> caps = service.getCapitulos();
+        model.addAttribute("capitulos", caps);
+        model.addAttribute("cid", "00");
+        model.addAttribute("ctitle", "PUBLICACION");
+        model.addAttribute("stitle", "");
+        model.addAttribute("aid", "publicacion");
         model.addAttribute("atitle", "");
         return "search";
     }
