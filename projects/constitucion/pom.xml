@@ -42,7 +42,7 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId> 
         </dependency>
         
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>nz.net.ultraq.thymeleaf</groupId>
             <artifactId>thymeleaf-layout-dialect</artifactId>
         </dependency>-->
@@ -65,7 +65,12 @@
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>${appengine-maven-plugin-version}</version>
             </plugin>
+            <plugin>
+                <groupId>com.google.appengine</groupId>
+                <artifactId>appengine-maven-plugin</artifactId>
+                <version>${appengine-maven-plugin-version}</version>
+            </plugin>
         </plugins>
     </build>
-
+    
 </project>
