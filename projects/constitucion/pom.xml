@@ -9,15 +9,6 @@
 
     <name>constitucion</name>
 
-    <properties>
-        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        
-        <appengine.app.version>1</appengine.app.version>
-        <appengine.target.version>1.9.71</appengine.target.version>
-        <appengine-maven-plugin-version>1.3.2</appengine-maven-plugin-version>
-    </properties>
-    
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId> 
