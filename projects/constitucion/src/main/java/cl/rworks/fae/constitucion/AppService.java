@@ -86,7 +86,7 @@ public class AppService {
         sdt.getArticulos().add(new Articulo("dt25", "Vigésima quinta"));
         sdt.getArticulos().add(new Articulo("dt26", "Vigésima sexta"));
         sdt.getArticulos().add(new Articulo("dt27", "Vigesimo séptima"));
-        sdt.getArticulos().add(new Articulo("dt28", "VIGÉSIMO OCTAVA"));
+        sdt.getArticulos().add(new Articulo("dt28", "Vigesimo Octava"));
         caps.add(new Capitulo("16", "DISPOSICIONES TRANSITORIAS", sdt));
 
         return caps;

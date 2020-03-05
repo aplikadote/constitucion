@@ -21,12 +21,12 @@
             ul.articulo {
                 list-style: none;
             }
-            
+
             ul.articulo > li {
                 padding-top: 10px;
                 padding-bottom : 10px;
             }
-            
+
             ol.articulo {
                 list-style: none;
             }
@@ -37,7 +37,7 @@
             }
         </style>
     </head>
-    <body >
+    <body class="uk-container">
         <div>
 
             <div class="uk-background-secondary uk-padding-small uk-light">
@@ -47,30 +47,30 @@
             <div uk-grid >
 
                 <!-- MENU -->
-                <div class="uk-width-1-5@l">
+                <div class="uk-width-1-4">
                     <div class="uk-background-secondary uk-light uk-padding-small" th:fragment="menu" >
-                        <ul class="uk-nav uk-nav-default" uk-nav="multiple: true">
+                        <!--<ul class="uk-nav uk-nav-default" uk-nav="multiple: true">-->
+                        <ul class="uk-list">
 
-                            <li><a th:href="@{/}">Constitución</a></li>
+                            <li><a th:href="@{/}">Inicio</a></li>
 
-                            <li class="uk-parent" th:classappend="${c.id == cid} ? uk-open: ''" th:each="c: ${capitulos}">
-                                <!--<a th:href="@{/cap/(id=${c.id})}" > [[${c.title}]]</a>-->
-                                <a href="#"> [[${c.title}]]</a>
-                                <ul class="uk-nav-sub" >
+                            <li th:each="c: ${capitulos}">
+                                [[${c.title}]]
+                                <ul>
                                     <li th:each="s: ${c.secciones}">
                                         [[${s.title}]]
-                                        <ul class="uk-nav-sub">
-                                            <li th:classappend="${a.id == aid} ? uk-active: ''" th:each="a: ${s.articulos}">
-                                                <a th:href="@{/art/(id=${a.id})}" > [[${a.title}]]</a>
+                                        <ul>
+                                            <li th:each="a: ${s.articulos}">
+                                                <a th:href="@{'/arts/'+${a.id}}" > [[${a.title}]]</a>
                                             </li>
                                         </ul>
                                     </li>
                                 </ul>
                             </li>
-                            
+
                             <li><a th:href="@{/publicacion}">Publicación</a></li>
-                            
-                            <li><a th:href="@{/ref}">Referencias</a></li>
+
+                            <li><a th:href="@{/refs}">Referencias</a></li>
 
                         </ul>
 
@@ -78,14 +78,15 @@
 
                 </div>
 
-                <div class="uk-width-4-5@l">
+                <div class="uk-width-3-4" uk-grid>
+
 
                     <div th:if="${error == null}" >
 
                         <article class="uk-article">
                             <br>
                             <p><b>[[${ctitle}]]</b>
-                            <br>[[${stitle}]]
+                                <br>[[${stitle}]]
                             <hr>
                             <p><b>[[${atitle}]]</b>
 
@@ -101,13 +102,12 @@
                     </div>
 
                     <div th:if="${error != null}" >
-                        Articulo no encontrado
+                        <h3>Articulo no encontrado</h3>
                     </div>
 
                 </div>
 
             </div>
-
 
         </div>
 
