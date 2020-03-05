@@ -94,8 +94,8 @@
 
                             <hr>
                             <div class="uk-grid-small uk-child-width-auto" uk-grid>
-                                <div><a class="uk-button uk-button-text" th:href="@{/art/?(id=${aprevId})}">[[${aprevTitle}]]</a></div>
-                                <div><a class="uk-button uk-button-text" th:href="@{/art/?(id=${anextId})}">[[${anextTitle}]]</a></div>
+                                <div><a class="uk-button uk-button-text" th:href="@{'/arts/'+${aprevId}}">[[${aprevTitle}]]</a></div>
+                                <div><a class="uk-button uk-button-text" th:href="@{'/arts/'+${anextId}}">[[${anextTitle}]]</a></div>
                             </div>
                         </article>
 
