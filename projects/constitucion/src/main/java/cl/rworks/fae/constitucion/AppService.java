@@ -6,14 +6,19 @@
 package cl.rworks.fae.constitucion;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AppService {
 
-    public List<Capitulo> getCapitulos() {
-        List<Capitulo> caps = new ArrayList<>();
+    private List<Capitulo> caps = new ArrayList<>();
+    private List<Articulo> arts = new ArrayList<>();
+    private Map<String, Articulo> index = new HashMap<>();
+
+    public AppService() {
         caps.add(new Capitulo("01", "CAPITULO I BASES DE LA INSTITUCIONALIDAD", new Seccion(1, 9)));
         caps.add(new Capitulo("02", "CAPITULO II NACIONALIDAD Y CIUDADANIA", new Seccion(10, 18)));
         caps.add(new Capitulo("03", "CAPITULO III DE LOS DERECHOS Y DEBERES CONSTITUCIONALES", new Seccion(19, 23)));
@@ -59,15 +64,15 @@ public class AppService {
         caps.add(new Capitulo("15", "CAPITULO XV REFORMA DE LA CONSTITUCION", new Seccion(127, 129)));
 
         Seccion sdt = new Seccion();
-        sdt.getArticulos().add(new Articulo("dt1", "Primera"));
-        sdt.getArticulos().add(new Articulo("dt2", "Segunda"));
-        sdt.getArticulos().add(new Articulo("dt3", "Tercera"));
-        sdt.getArticulos().add(new Articulo("dt4", "Cuarta"));
-        sdt.getArticulos().add(new Articulo("dt5", "Quinta"));
-        sdt.getArticulos().add(new Articulo("dt6", "Sexta"));
-        sdt.getArticulos().add(new Articulo("dt7", "Séptima"));
-        sdt.getArticulos().add(new Articulo("dt8", "Octava"));
-        sdt.getArticulos().add(new Articulo("dt9", "Novena"));
+        sdt.getArticulos().add(new Articulo("dt01", "Primera"));
+        sdt.getArticulos().add(new Articulo("dt02", "Segunda"));
+        sdt.getArticulos().add(new Articulo("dt03", "Tercera"));
+        sdt.getArticulos().add(new Articulo("dt04", "Cuarta"));
+        sdt.getArticulos().add(new Articulo("dt05", "Quinta"));
+        sdt.getArticulos().add(new Articulo("dt06", "Sexta"));
+        sdt.getArticulos().add(new Articulo("dt07", "Séptima"));
+        sdt.getArticulos().add(new Articulo("dt08", "Octava"));
+        sdt.getArticulos().add(new Articulo("dt09", "Novena"));
         sdt.getArticulos().add(new Articulo("dt10", "Décima"));
         sdt.getArticulos().add(new Articulo("dt11", "Decimoprimera"));
         sdt.getArticulos().add(new Articulo("dt12", "Decimosegunda"));
@@ -89,7 +94,34 @@ public class AppService {
         sdt.getArticulos().add(new Articulo("dt28", "Vigesimo Octava"));
         caps.add(new Capitulo("16", "DISPOSICIONES TRANSITORIAS", sdt));
 
+        int pos = 0;
+        for (int i = 0; i < caps.size(); i++) {
+            Capitulo c = caps.get(i);
+            for (int j = 0; j < c.getSecciones().size(); j++) {
+                Seccion s = c.getSecciones().get(j);
+                for (int k = 0; k < s.getArticulos().size(); k++) {
+                    Articulo a = s.getArticulos().get(k);
+                    a.setCapitulo(c);
+                    a.setSeccion(s);
+                    a.setPosition(pos++);
+
+                    arts.add(a);
+                    index.put(a.getId(), a);
+                }
+            }
+        }
+    }
+
+    public List<Capitulo> getCapitulos() {
         return caps;
+    }
+
+    public List<Articulo> getArticulos() {
+        return arts;
+    }
+
+    public Map<String, Articulo> getIndex() {
+        return index;
     }
 
 }

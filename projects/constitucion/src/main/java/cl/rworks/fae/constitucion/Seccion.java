@@ -5,6 +5,7 @@
  */
 package cl.rworks.fae.constitucion;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class Seccion {
 
     private String title = "";
     private List<Articulo> articulos = new ArrayList<>();
+    private DecimalFormat df = new DecimalFormat("000");
 
     public Seccion() {
     }
@@ -27,7 +29,8 @@ public class Seccion {
     public Seccion(String title, int start, int end) {
         this.title = title;
         for (int i = start; i <= end; i++) {
-            articulos.add(new Articulo(Integer.toString(i), "Articulo " + i));
+            String id = df.format(i);
+            articulos.add(new Articulo(id, "Articulo " + i));
         }
     }
 

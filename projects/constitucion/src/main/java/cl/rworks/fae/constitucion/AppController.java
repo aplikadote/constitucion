@@ -5,17 +5,13 @@
  */
 package cl.rworks.fae.constitucion;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AppController {
@@ -25,113 +21,135 @@ public class AppController {
 
     @RequestMapping("/")
     public String home(Model model) {
-        List<Capitulo> caps = service.getCapitulos();
-        model.addAttribute("capitulos", caps);
-        model.addAttribute("cid", "00");
-        model.addAttribute("ctitle", "CONSTITUCIÓN POLÍTICA DE LA REPUBLICA DE CHILE");
-        model.addAttribute("stitle", "");
-        model.addAttribute("aid", "0");
-        model.addAttribute("atitle", "");
-        return "search";
+        Data data = new Data(service.getCapitulos());
+        data.setCapitulo(new Capitulo("", "CONSTITUCIÓN POLÍTICA DE LA REPUBLICA DE CHILE"));
+        data.setSeccion(new Seccion(""));
+        data.setArticulo(new Articulo("", "", "/", "fragments/inicio"));
+        model.addAttribute("data", data);
+        return "base";
     }
 
     @RequestMapping("/arts/{id}")
     public String arts(@PathVariable String id, Model model) {
-        List<Capitulo> caps = service.getCapitulos();
-        model.addAttribute("capitulos", caps);
-
-        List<Articulo> arts = new ArrayList<>();
-        int pos = 0;
-        Map<String, Articulo> index = new HashMap<>();
-        for (int i = 0; i < caps.size(); i++) {
-            Capitulo c = caps.get(i);
-            for (int j = 0; j < c.getSecciones().size(); j++) {
-                Seccion s = c.getSecciones().get(j);
-                for (int k = 0; k < s.getArticulos().size(); k++) {
-                    Articulo a = s.getArticulos().get(k);
-                    a.setCapitulo(c);
-                    a.setSeccion(s);
-                    a.setPosition(pos++);
-
-                    arts.add(a);
-                    index.put(a.getId(), a);
-                }
-            }
-        }
+        List<Capitulo> capitulos = service.getCapitulos();
+        List<Articulo> arts = service.getArticulos();
+        Map<String, Articulo> index = service.getIndex();
 
         Articulo articulo = index.get(id);
         if (articulo != null) {
-            String cid = articulo.getCapitulo().getId();
             int position = articulo.getPosition();
+            Articulo articuloPrev = position - 1 >= 0 ? arts.get(position - 1) : null;
+            Articulo articuloNext = position + 1 < arts.size() ? arts.get(position + 1) : null;
 
-            String prevId = position - 1 >= 0 ? arts.get(position - 1).getId() : "";
-            String nextId = position + 1 < arts.size() ? arts.get(position + 1).getId() : "";
-            String prevTitle = position - 1 >= 0 ? arts.get(position - 1).getTitle() : "";
-            String nextTitle = position + 1 < arts.size() ? arts.get(position + 1).getTitle() : "";
-
-            model.addAttribute("cid", cid);
-            model.addAttribute("ctitle", articulo.getCapitulo().getTitle());
-            model.addAttribute("stitle", articulo.getSeccion().getTitle());
-            model.addAttribute("aid", id);
-            model.addAttribute("atitle", articulo.getTitle());
-            model.addAttribute("aprevId", prevId);
-            model.addAttribute("anextId", nextId);
-            model.addAttribute("aprevTitle", prevTitle);
-            model.addAttribute("anextTitle", nextTitle);
-            return "search";
+            Data data = new Data(capitulos);
+            data.setCapitulo(articulo.getCapitulo());
+            data.setSeccion(articulo.getSeccion());
+            data.setArticulo(articulo);
+            data.setArticuloPrev(articuloPrev);
+            data.setArticuloNext(articuloNext);
+            model.addAttribute("data", data);
+            return "base";
         } else {
-            model.addAttribute("error", "error");
-            return "search";
+            Data data = new Data(capitulos);
+            data.setError(true);
+            data.setCapitulo(new Capitulo("", "Error"));
+            data.setSeccion(new Seccion(""));
+            data.setArticulo(new Articulo("", "", "/error", "fragments/error"));
+            model.addAttribute("data", data);
+            return "base";
         }
     }
 
     @RequestMapping("/ref*")
     public String refs(Model model) {
-        List<Capitulo> caps = service.getCapitulos();
-        model.addAttribute("capitulos", caps);
-        model.addAttribute("cid", "00");
-        model.addAttribute("ctitle", "REFERENCIAS");
-        model.addAttribute("stitle", "");
-        model.addAttribute("aid", "refs");
-        model.addAttribute("atitle", "");
-        return "search";
-    }
-    
-    @RequestMapping("/publicacion")
-    public String publicacion(Model model) {
-        List<Capitulo> caps = service.getCapitulos();
-        model.addAttribute("capitulos", caps);
-        model.addAttribute("cid", "00");
-        model.addAttribute("ctitle", "PUBLICACION");
-        model.addAttribute("stitle", "");
-        model.addAttribute("aid", "publicacion");
-        model.addAttribute("atitle", "");
-        return "search";
+        Data data = new Data(service.getCapitulos());
+        data.setCapitulo(new Capitulo("", "REFERENCIAS"));
+        data.setSeccion(new Seccion(""));
+        data.setArticulo(new Articulo("", "", "/refs", "fragments/refs"));
+        model.addAttribute("data", data);
+        return "base";
     }
 
-//    @RequestMapping("/cap")
-//    public String cap(@RequestParam String id, Model model) {
-//        List<Capitulo> caps = service.getCapitulos();
-//        model.addAttribute("capitulos", caps);
-//
-//        try {
-//            int capituloId = Integer.parseInt(id);
-//            if (capituloId >= 0 && capituloId <= 15) {
-//                String nro = capituloId < 10 ? "0" + capituloId : Integer.toString(capituloId);
-//                model.addAttribute("cid", nro);
-//                model.addAttribute("aid", -1);
-//                return "search";
-//            } else {
-//                return "notfound";
-//            }
-//        } catch (NumberFormatException e) {
-//            return "notfound";
-//        }
-//    }
-//    @RequestMapping("/error")
-//    public String error(Model model) {
-//        List<Capitulo> caps = service.getCapitulos();
-//        model.addAttribute("capitulos", caps);
-//        return "error";
-//    }
+    @RequestMapping("/publicacion")
+    public String publicacion(Model model) {
+        Data data = new Data(service.getCapitulos());
+        data.setCapitulo(new Capitulo("", "PUBLICACION"));
+        data.setSeccion(new Seccion(""));
+        data.setArticulo(new Articulo("", "", "/publicacion", "fragments/publicacion"));
+        model.addAttribute("data", data);
+        return "base";
+    }
+    
+    public class Data {
+
+        private List<Capitulo> capitulos;
+        private Capitulo capitulo = null;
+        private Seccion seccion = null;
+        private Articulo articulo = null;
+        private Articulo articuloPrev = null;
+        private Articulo articuloNext = null;
+        private boolean error = false;
+
+        public Data(List<Capitulo> capitulos) {
+            this.capitulos = capitulos;
+        }
+
+        public List<Capitulo> getCapitulos() {
+            return capitulos;
+        }
+
+        public void setCapitulos(List<Capitulo> capitulos) {
+            this.capitulos = capitulos;
+        }
+
+        public Capitulo getCapitulo() {
+            return capitulo;
+        }
+
+        public void setCapitulo(Capitulo capitulo) {
+            this.capitulo = capitulo;
+        }
+
+        public Seccion getSeccion() {
+            return seccion;
+        }
+
+        public void setSeccion(Seccion seccion) {
+            this.seccion = seccion;
+        }
+
+        public Articulo getArticulo() {
+            return articulo;
+        }
+
+        public void setArticulo(Articulo articulo) {
+            this.articulo = articulo;
+        }
+
+        public Articulo getArticuloPrev() {
+            return articuloPrev;
+        }
+
+        public void setArticuloPrev(Articulo articuloPrev) {
+            this.articuloPrev = articuloPrev;
+        }
+
+        public Articulo getArticuloNext() {
+            return articuloNext;
+        }
+
+        public void setArticuloNext(Articulo articuloNext) {
+            this.articuloNext = articuloNext;
+        }
+
+        public boolean getError() {
+            return error;
+        }
+
+        public void setError(boolean error) {
+            this.error = error;
+        }
+
+    }
+
 }

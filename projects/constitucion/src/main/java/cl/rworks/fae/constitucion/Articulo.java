@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this fragments file, choose Tools | Templates
+ * and open the fragments in the editor.
  */
 package cl.rworks.fae.constitucion;
 
@@ -17,13 +17,35 @@ public class Articulo {
     private Capitulo capitulo;
     private Seccion seccion;
     private int position;
-    
+    //
+    private String href;
+    private String fragment;
+
     public Articulo() {
     }
 
     public Articulo(String id, String title) {
         this.id = id;
         this.title = title;
+        this.href = "/arts/" + id;
+        this.fragment = "fragments/art" + id;
+
+//        try {
+//            int aux = Integer.parseInt(id);
+//            String var = aux < 10 ? "0" + aux : "" + aux + "";
+//            this.href = "/arts/" + var;
+//            this.fragment = "fragments/art" + var;
+//        } catch (NumberFormatException ex) {
+//            this.href = "/arts/" + id;
+//            this.fragment = "fragments/art" + id;
+//        }
+    }
+
+    public Articulo(String id, String title, String href, String fragment) {
+        this.id = id;
+        this.title = title;
+        this.href = href;
+        this.fragment = fragment;
     }
 
     public String getId() {
@@ -66,5 +88,12 @@ public class Articulo {
         this.position = position;
     }
 
-}
+    public String getHref() {
+        return href;
+    }
 
+    public String getFragment() {
+        return fragment;
+    }
+
+}

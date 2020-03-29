@@ -53,50 +53,48 @@
                         <ul class="uk-list">
 
                             <li><a th:href="@{/}">Inicio</a></li>
-
-                            <li th:each="c: ${capitulos}">
-                                [[${c.title}]]
+                            <li th:each="cap: ${data.capitulos}">
+                                [[${cap.title}]]
                                 <ul>
-                                    <li th:each="s: ${c.secciones}">
-                                        [[${s.title}]]
+                                    <li th:each="sec: ${cap.secciones}">
+                                        [[${sec.title}]]
                                         <ul>
-                                            <li th:each="a: ${s.articulos}">
-                                                <a th:href="@{'/arts/'+${a.id}}" > [[${a.title}]]</a>
+                                            <li th:each="art: ${sec.articulos}">
+                                                <a th:href="@{${art.href}}" > [[${art.title}]]</a>
                                             </li>
                                         </ul>
                                     </li>
                                 </ul>
                             </li>
-
                             <li><a th:href="@{/publicacion}">Publicación</a></li>
-
                             <li><a th:href="@{/refs}">Referencias</a></li>
-
                         </ul>
-
                     </div>
-
                 </div>
 
                 <div class="uk-width-3-4" uk-grid>
-
-
-                    <div th:if="${error == null}" >
+                    <div th:if="${!data.error}" >
 
                         <article class="uk-article">
                             <br>
-                            <p><b>[[${ctitle}]]</b>
-                                <br>[[${stitle}]]
+                            <p><b>[[${data.capitulo.title}]]</b>
+                                <br>[[${data.seccion.title}]]
                             <hr>
-                            <p><b>[[${atitle}]]</b>
+                            <!--<p><b>[[${data.articulo.title}]]</b>-->
 
-                            <div th:replace="'capitulos/capitulo' + ${cid} :: ${aid}"></div>
+                            <div th:replace="${data.articulo.fragment}"></div>
 
                             <hr>
+
                             <div class="uk-grid-small uk-child-width-auto" uk-grid>
-                                <div><a class="uk-button uk-button-text" th:href="@{'/arts/'+${aprevId}}">[[${aprevTitle}]]</a></div>
-                                <div><a class="uk-button uk-button-text" th:href="@{'/arts/'+${anextId}}">[[${anextTitle}]]</a></div>
+                                <div th:if="${data.articuloPrev != null}" >
+                                    <div><a class="uk-button uk-button-text" th:href="@{${data.articuloPrev.href}}">[[${data.articuloPrev.title}]]</a></div>
+                                </div>
+                                <div th:if="${data.articuloNext != null}" >
+                                    <div><a class="uk-button uk-button-text" th:href="@{${data.articuloNext.href}}">[[${data.articuloNext.title}]]</a></div>
+                                </div>
                             </div>
+
                         </article>
 
                     </div>
