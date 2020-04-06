@@ -14,12 +14,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AppService {
+    
+    @Autowired
+    ResourceLoader resourceLoader;
 
     private List<Capitulo> caps = new ArrayList<>();
     private List<Articulo> arts = new ArrayList<>();
@@ -143,7 +148,8 @@ public class AppService {
                 List<Articulo> articulos = seccion.getArticulos();
                 for (Articulo articulo : articulos) {
                     try {
-                        Resource resource = new ClassPathResource("/templates/" + articulo.getFragment() + ".html");
+//                        Resource resource = new ClassPathResource("/templates/" + articulo.getFragment() + ".html");
+                        Resource resource = resourceLoader.getResource("classpath:/templates/" + articulo.getFragment() + ".html");
                         Path path = Paths.get(resource.getURI());
                         List<String> lines = Files.readAllLines(path, Charset.forName("UTF-8"));
                         for (String line : lines) {
