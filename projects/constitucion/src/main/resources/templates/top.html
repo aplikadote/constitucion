@@ -7,7 +7,7 @@
         </div>
         <div class="uk-width-1-2">
             <div class="uk-flex uk-flex-center@m uk-flex-right@l">
-                <form class="uk-form" action="#" th:action="@{/search}" th:object="${data}" method="post">
+                <form class="uk-form" th:action="@{/searchAction}" th:object="${data}" method="post">
                     <div class="uk-inline">
                         <!--<a class="uk-form-icon" href="#" uk-icon="icon: search"></a>-->
                         <input class="uk-input uk-width-medium" type="text" th:field="*{searchText}" >

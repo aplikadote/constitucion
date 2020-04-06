@@ -3,7 +3,7 @@
  * To change this fragments file, choose Tools | Templates
  * and open the fragments in the editor.
  */
-package cl.rworks.fae.constitucion;
+package cl.rgonzalez.constitucion;
 
 /**
  *

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cl.rworks.fae.constitucion;
+package cl.rgonzalez.constitucion;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,10 +11,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class AppController {
@@ -83,21 +85,24 @@ public class AppController {
         return "base";
     }
 
-    @PostMapping("/search")
-    public String searchPost(Model model, @ModelAttribute Data requestData) {
+    @PostMapping("/searchAction")
+    public String searchPost(Model model, @ModelAttribute Data requestData, RedirectAttributes attr) {
         String text = requestData.getSearchText();
-        model.addAttribute("data", new Data(service.getCapitulos()));
-        model.addAttribute("searchData", new AppSearchData(text, service.search(text)));
-        return "search";
+
+        attr.addFlashAttribute("searchData", new AppSearchData(text, service.search(text)));
+        return "redirect:/search";
     }
 
-    @RequestMapping("/search")
+    @GetMapping("/search")
     public String searchGet(Model model) {
         List<Capitulo> capitulos = service.getCapitulos();
 
         Data data = new Data(capitulos);
         model.addAttribute("data", data);
-        model.addAttribute("searchData", new AppSearchData());
+
+        if (!model.containsAttribute("searchData")) {
+            model.addAttribute("searchData", new AppSearchData());
+        }
         return "search";
     }
 
