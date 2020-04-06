@@ -5,12 +5,15 @@
  */
 package cl.rworks.fae.constitucion;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -79,7 +82,29 @@ public class AppController {
         model.addAttribute("data", data);
         return "base";
     }
-    
+
+    @PostMapping("/search")
+    public String searchPost(Model model, @ModelAttribute Data requestData) {
+        String text = requestData.getSearchText();
+        model.addAttribute("data", new Data(service.getCapitulos()));
+        model.addAttribute("searchData", new AppSearchData(text, service.search(text)));
+        return "search";
+    }
+
+    @RequestMapping("/search")
+    public String searchGet(Model model) {
+        List<Capitulo> capitulos = service.getCapitulos();
+
+        Data data = new Data(capitulos);
+        model.addAttribute("data", data);
+        return "search";
+    }
+
+    @ModelAttribute("time")
+    public LocalDateTime getRequestTime() {
+        return LocalDateTime.now();
+    }
+
     public class Data {
 
         private List<Capitulo> capitulos;
@@ -89,6 +114,7 @@ public class AppController {
         private Articulo articuloPrev = null;
         private Articulo articuloNext = null;
         private boolean error = false;
+        private String searchText;
 
         public Data(List<Capitulo> capitulos) {
             this.capitulos = capitulos;
@@ -150,6 +176,13 @@ public class AppController {
             this.error = error;
         }
 
+        public String getSearchText() {
+            return searchText;
+        }
+
+        public void setSearchText(String searchText) {
+            this.searchText = searchText;
+        }
     }
 
 }

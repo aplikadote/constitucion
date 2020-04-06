@@ -1,0 +1,18 @@
+ul.articulo {
+    list-style: none;
+}
+
+ul.articulo > li {
+    padding-top: 10px;
+    padding-bottom : 10px;
+}
+
+ol.articulo {
+    list-style: none;
+}
+
+ol.articulo > li {
+    padding-top: 10px;
+    padding-bottom : 10px;
+}
+

@@ -5,10 +5,17 @@
  */
 package cl.rworks.fae.constitucion;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,7 +32,7 @@ public class AppService {
 
         caps.add(new Capitulo("04", "CAPITULO IV GOBIERNO",
                 new Seccion("Presidente de la República", 24, 32),
-                new Seccion("Ministros de Estado", "33", "34", "35", "36", "37", "37bis"),
+                new Seccion("Ministros de Estado", "033", "034", "035", "036", "037", "037bis"),
                 new Seccion("Bases Generales de la Administración del Estado", 38, 38),
                 new Seccion("Estados de Excepción Constitucional", 39, 45)
         ));
@@ -36,7 +43,7 @@ public class AppService {
                 new Seccion("Atribuciones exclusivas de la Cámara de Diputados", 52, 52),
                 new Seccion("Atribuciones exclusivas del Senado", 53, 53),
                 new Seccion("Atribuciones exclusivas del Congreso", 54, 54),
-                new Seccion("Funcionamiento del Congreso", "55", "56", "56bis"),
+                new Seccion("Funcionamiento del Congreso", "055", "056", "056bis"),
                 new Seccion("Normas comunes para los Diputados y Senadores", 57, 62),
                 new Seccion("Materias de Ley", 63, 64),
                 new Seccion("Formación de la Ley", 65, 72)
@@ -46,7 +53,7 @@ public class AppService {
         caps.add(new Capitulo("07", "CAPITULO VII MINISTERIO PUBLICO", new Seccion(83, 91)));
         caps.add(new Capitulo("08", "CAPITULO VIII TRIBUNAL CONSTITUCIONAL", new Seccion(92, 94)));
 
-        caps.add(new Capitulo("09", "CAPITULO IX SERVICIO ELECTORAL Y JUSTICIA ELECTORAL", new Seccion("", "94bis", "95", "96", "97")));
+        caps.add(new Capitulo("09", "CAPITULO IX SERVICIO ELECTORAL Y JUSTICIA ELECTORAL", new Seccion("", "094bis", "095", "096", "097")));
 
         caps.add(new Capitulo("10", "CAPITULO X CONTRALORIA GENERAL DE LA REPUBLICA", new Seccion(98, 100)));
         caps.add(new Capitulo("11", "CAPITULO XI FUERZAS ARMADAS, DE ORDEN Y SEGURIDAD PÚBLICA", new Seccion(101, 105)));
@@ -122,6 +129,36 @@ public class AppService {
 
     public Map<String, Articulo> getIndex() {
         return index;
+    }
+
+    public List<AppSearchDataBean> search(String text) {
+        List<AppSearchDataBean> results = new ArrayList<>();
+        if (text == null || text.isEmpty()) {
+            return results;
+        }
+
+        for (Capitulo capitulo : caps) {
+            List<Seccion> secciones = capitulo.getSecciones();
+            for (Seccion seccion : secciones) {
+                List<Articulo> articulos = seccion.getArticulos();
+                for (Articulo articulo : articulos) {
+                    try {
+                        Resource resource = new ClassPathResource("/templates/" + articulo.getFragment() + ".html");
+                        Path path = Paths.get(resource.getURI());
+                        List<String> lines = Files.readAllLines(path, Charset.forName("UTF-8"));
+                        for (String line : lines) {
+                            if (line.contains(text)) {
+                                results.add(new AppSearchDataBean(articulo, line));
+                                break;
+                            }
+                        }
+                    } catch (IOException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                }
+            }
+        }
+        return results;
     }
 
 }

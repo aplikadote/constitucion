@@ -1,0 +1,25 @@
+<div th:fragment="menu" class="uk-width-1-4">
+    <div class="uk-background-secondary uk-light uk-padding-small" th:fragment="menu" >
+        <!--<ul class="uk-nav uk-nav-default" uk-nav="multiple: true">-->
+        <ul class="uk-list">
+
+            <li><a th:href="@{/}">Inicio</a></li>
+            <li th:each="cap: ${data.capitulos}">
+                [[${cap.title}]]
+                <ul>
+                    <li th:each="sec: ${cap.secciones}">
+                        [[${sec.title}]]
+                        <ul>
+                            <li th:each="art: ${sec.articulos}">
+                                <a th:href="@{${art.href}}" > [[${art.title}]]</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a th:href="@{/publicacion}">Publicación</a></li>
+            <li><a th:href="@{/refs}">Referencias</a></li>
+        </ul>
+    </div>
+</div>
+

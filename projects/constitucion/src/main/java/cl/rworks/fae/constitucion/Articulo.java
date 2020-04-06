@@ -29,16 +29,6 @@ public class Articulo {
         this.title = title;
         this.href = "/arts/" + id;
         this.fragment = "fragments/art" + id;
-
-//        try {
-//            int aux = Integer.parseInt(id);
-//            String var = aux < 10 ? "0" + aux : "" + aux + "";
-//            this.href = "/arts/" + var;
-//            this.fragment = "fragments/art" + var;
-//        } catch (NumberFormatException ex) {
-//            this.href = "/arts/" + id;
-//            this.fragment = "fragments/art" + id;
-//        }
     }
 
     public Articulo(String id, String title, String href, String fragment) {

@@ -1,0 +1,19 @@
+<div th:fragment="top" class="uk-background-secondary uk-padding-small uk-light">
+    <div uk-grid>
+        <div class="uk-width-1-2">
+            <div class="uk-flex uk-flex-center@m uk-flex-left@l">
+                <b>Constitución Política de la República de Chile</b>
+            </div>
+        </div>
+        <div class="uk-width-1-2">
+            <div class="uk-flex uk-flex-center@m uk-flex-right@l">
+                <form action="#" th:action="@{/search}" th:object="${data}" method="post">
+                    <div class="uk-inline">
+                        <a class="uk-form-icon" href="#" uk-icon="icon: search"></a>
+                        <input class="uk-input" type="text" th:field="*{searchText}">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

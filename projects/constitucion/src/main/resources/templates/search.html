@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Constitución de Chile</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <!-- UIkit CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/css/uikit.min.css" />
+
+        <!-- UIkit JS -->
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit-icons.min.js"></script>
+
+        <!-- Knockout JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+
+        <!-- JQUERY -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </head>
+
+    <body class="uk-container">
+        <div>
+            <div th:replace="top"></div>
+
+            <div uk-grid >
+
+                <!-- MENU -->
+                <div th:replace="menu"></div>
+
+                <div class="uk-width-3-4">
+                    <div th:if="${searchData.beans.isEmpty()}">
+                        Sin resultados para: <b><span th:text="${searchData.text}"></span></b>
+                    </div>
+
+                    <div th:if="${!searchData.beans.isEmpty()}">
+                        Resultados para: <b><span th:text="${searchData.text}"></span></b>
+                        <table id="table" class="uk-table">
+                            <thead>
+                                <tr>
+                                    <th>Articulo</th>
+                                    <th>Contenido</th>
+                                </tr>
+                            </thead>
+                            <tbody th:each="bean : ${searchData.beans}">
+                                <tr>
+                                    <td><a th:href="@{${bean.articulo.href}}"><span th:text="${bean.articulo.title}">></span></a></td>
+                                    <td th:text="${bean.line}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <script th:src="@{js/base.js}" ></script>
+    </body>
+</html>
