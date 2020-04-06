@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class AppSearchData {
 
-    private String text;
+    private String text = "";
     private List<AppSearchDataBean> beans = new ArrayList<>();
 
     public AppSearchData() {

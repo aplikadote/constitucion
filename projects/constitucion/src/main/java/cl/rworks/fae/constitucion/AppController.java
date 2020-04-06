@@ -97,6 +97,7 @@ public class AppController {
 
         Data data = new Data(capitulos);
         model.addAttribute("data", data);
+        model.addAttribute("searchData", new AppSearchData());
         return "search";
     }
 
