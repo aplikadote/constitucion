@@ -10,8 +10,8 @@
                 <form class="uk-form" th:action="@{/searchAction}" th:object="${data}" method="post">
                     <div class="uk-inline">
                         <!--<a class="uk-form-icon" href="#" uk-icon="icon: search"></a>-->
-                        <input class="uk-input uk-width-medium" type="text" th:field="*{searchText}" >
-                        <input class="uk-button uk-button-default" type="submit" value="Buscar">
+                        <input class="uk-input uk-width-medium" type="text" th:field="*{searchText}" uk-tooltip="title: Busca la frase completa exacta dentro de todos los articulos; delay: 500">
+                        <input class="uk-button uk-button-default" type="submit" value="Buscar"> 
                     </div>
                 </form>
             </div>
