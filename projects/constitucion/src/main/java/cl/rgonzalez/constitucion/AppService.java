@@ -5,27 +5,15 @@
  */
 package cl.rgonzalez.constitucion;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AppService {
     
-    @Autowired
-    ResourceLoader resourceLoader;
-
     private List<Capitulo> caps = new ArrayList<>();
     private List<Articulo> arts = new ArrayList<>();
     private Map<String, Articulo> index = new HashMap<>();
@@ -134,37 +122,6 @@ public class AppService {
 
     public Map<String, Articulo> getIndex() {
         return index;
-    }
-
-    public List<AppSearchDataBean> search(String text) {
-        List<AppSearchDataBean> results = new ArrayList<>();
-        if (text == null || text.isEmpty()) {
-            return results;
-        }
-
-        for (Capitulo capitulo : caps) {
-            List<Seccion> secciones = capitulo.getSecciones();
-            for (Seccion seccion : secciones) {
-                List<Articulo> articulos = seccion.getArticulos();
-                for (Articulo articulo : articulos) {
-                    try {
-//                        Resource resource = new ClassPathResource("/templates/" + articulo.getFragment() + ".html");
-                        Resource resource = resourceLoader.getResource("classpath:/templates/" + articulo.getFragment() + ".html");
-                        Path path = Paths.get(resource.getURI());
-                        List<String> lines = Files.readAllLines(path, Charset.forName("UTF-8"));
-                        for (String line : lines) {
-                            if (line.contains(text)) {
-                                results.add(new AppSearchDataBean(articulo, line));
-                                break;
-                            }
-                        }
-                    } catch (IOException ex) {
-                        System.out.println(ex.getMessage());
-                    }
-                }
-            }
-        }
-        return results;
     }
 
 }

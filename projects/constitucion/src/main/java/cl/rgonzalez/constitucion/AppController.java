@@ -23,6 +23,8 @@ public class AppController {
 
     @Autowired
     AppService service;
+    @Autowired
+    AppServiceSearch serviceSearch;
 
     @RequestMapping("/")
     public String home(Model model) {
@@ -89,7 +91,7 @@ public class AppController {
     public String searchPost(Model model, @ModelAttribute Data requestData, RedirectAttributes attr) {
         String text = requestData.getSearchText();
 
-        attr.addFlashAttribute("searchData", new AppSearchData(text, service.search(text)));
+        attr.addFlashAttribute("searchData", new AppSearchData(text, serviceSearch.search(text)));
         return "redirect:/search";
     }
 
