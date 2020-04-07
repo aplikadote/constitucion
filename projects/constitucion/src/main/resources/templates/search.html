@@ -28,27 +28,37 @@
                 <div th:replace="menu"></div>
 
                 <div class="uk-width-3-4">
-                    <div th:if="${searchData.beans.isEmpty()}">
-                        Sin resultados para: <b><span th:text="${searchData.text}"></span></b>
-                    </div>
+                    <article class="uk-article">
+                        <br>
+                        <p><b>Búsqueda</b>
+                        <hr>
 
-                    <div th:if="${!searchData.beans.isEmpty()}">
-                        Resultados para: <b><span th:text="${searchData.text}"></span></b>
-                        <table id="table" class="uk-table">
-                            <thead>
-                                <tr>
-                                    <th>Articulo</th>
-                                    <th>Contenido</th>
-                                </tr>
-                            </thead>
-                            <tbody th:each="bean : ${searchData.beans}">
-                                <tr>
-                                    <td><a th:href="@{${bean.articulo.href}}"><span th:text="${bean.articulo.title}">></span></a></td>
-                                    <td th:text="${bean.line}"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        <div th:if="${searchData.beans.isEmpty()}">
+                            Sin resultados para: <b><span th:text="${searchData.text}"></span></b>
+                        </div>
+
+                        <div th:if="${!searchData.beans.isEmpty()}">
+                            Resultados para: <b><span th:text="${searchData.text}"></span></b>
+                            <table id="table" class="uk-table">
+                                <thead>
+                                    <tr>
+                                        <th>Articulo</th>
+                                        <th>Contenido</th>
+                                    </tr>
+                                </thead>
+                                <tbody th:each="bean : ${searchData.beans}">
+                                    <tr>
+                                        <td><a th:href="@{${bean.articulo.href}}"><span th:text="${bean.articulo.title}">></span></a></td>
+                                        <td th:text="${bean.line}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </article>
+
+
+
                 </div>
 
             </div>
